@@ -1,14 +1,20 @@
 package ro.sda.hypermarket.core.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "suppliers", schema = "hypermarket")
+
 public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @OneToMany(mappedBy = "supplier")
+    private List<Product> products = new ArrayList<Product>();
 
     @Column(name = "name", length = 40, nullable = false)
     private String name;
