@@ -1,6 +1,7 @@
 package ro.sda.hypermarket.core.entity;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -23,16 +24,15 @@ public class Employee {
     @Column(name = "job_title", length = 40, nullable = false)
     private String jobTitle;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn (name = "dept_id")
-    private Department department;
+    private Employee manager;
 
     @Column(name = "city", length = 40, nullable = false)
     private String city;
 
-    @OneToOne
-    @JoinColumn (name = "manager_id")
-    private Employee employee;
+    @OneToMany(mappedBy = "manager")
+    private List<ProductCategory> productCategories;
 
     public Long getId() {
         return id;
@@ -74,12 +74,12 @@ public class Employee {
         this.jobTitle = jobTitle;
     }
 
-    public Department getDepartment() {
-        return department;
+    public Employee getManager() {
+        return manager;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    public void setManager(Employee manager) {
+        this.manager = manager;
     }
 
     public String getCity() {
@@ -90,31 +90,31 @@ public class Employee {
         this.city = city;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public List<ProductCategory> getProductCategories() {
+        return productCategories;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setProductCategories(List<ProductCategory> productCategories) {
+        this.productCategories = productCategories;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Employee employee1 = (Employee) o;
-        return id.equals(employee1.id) &&
-                firstName.equals(employee1.firstName) &&
-                lastName.equals(employee1.lastName) &&
-                salary.equals(employee1.salary) &&
-                jobTitle.equals(employee1.jobTitle) &&
-                department.equals(employee1.department) &&
-                city.equals(employee1.city) &&
-                employee.equals(employee1.employee);
+        Employee employee = (Employee) o;
+        return id.equals(employee.id) &&
+                firstName.equals(employee.firstName) &&
+                lastName.equals(employee.lastName) &&
+                salary.equals(employee.salary) &&
+                jobTitle.equals(employee.jobTitle) &&
+                manager.equals(employee.manager) &&
+                city.equals(employee.city) &&
+                productCategories.equals(employee.productCategories);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, salary, jobTitle, department, city, employee);
+        return Objects.hash(id, firstName, lastName, salary, jobTitle, manager, city, productCategories);
     }
 }

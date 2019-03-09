@@ -7,14 +7,14 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "suppliers", schema = "hypermarket")
-
 public class Supplier {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToMany(mappedBy = "supplier")
-    private List<Product> products = new ArrayList<Product>();
+    private List<Product> products;
 
     @Column(name = "name", length = 40, nullable = false)
     private String name;

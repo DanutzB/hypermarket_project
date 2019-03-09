@@ -6,6 +6,7 @@ import java.util.Objects;
 @Entity
 @Table(name="products", schema = "hypermarket")
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
