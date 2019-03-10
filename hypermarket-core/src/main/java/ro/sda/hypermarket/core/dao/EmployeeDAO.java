@@ -1,12 +1,14 @@
 package ro.sda.hypermarket.core.dao;
 
+import ro.sda.hypermarket.core.entity.Employee;
+
 public interface EmployeeDAO {
 
-    void createEmployee();
+    void createEmployee(Employee employee);
 
-    void readEmployee();
+    Employee readEmployee(Long employeeId);
 
-    void updateEmployee();
+    void updateEmployee(Employee employee);
 
-    void deleteEmployee();
+    Employee deleteEmployee(Long employeeId);
 }
