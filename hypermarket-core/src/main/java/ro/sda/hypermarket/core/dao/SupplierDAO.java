@@ -1,12 +1,14 @@
 package ro.sda.hypermarket.core.dao;
 
+import ro.sda.hypermarket.core.entity.Supplier;
+
 public interface SupplierDAO {
 
-    void createSupplier();
+    void createSupplier(Supplier supplier);
 
-    void readSupplier();
+    Supplier readSupplier(Long supplierId);
 
-    void updateSupplier();
+    Supplier updateSupplier(Supplier supplier);
 
-    void deleteSupplier();
+    void deleteSupplier(Supplier supplier);
 }
