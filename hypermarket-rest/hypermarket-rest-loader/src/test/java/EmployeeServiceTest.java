@@ -29,9 +29,9 @@ public class EmployeeServiceTest {
 
     @Test
     public void readEmployee(){
-        Employee emp = employeeDAO.readEmployee(1L);
+        Employee emp = employeeDAO.readEmployee(2L);
         Long actual = emp.getId();
-        Long expected = 1L;
+        Long expected = 2L;
         System.out.println(emp.toString());
         Assert.assertEquals(expected, actual);
     }
