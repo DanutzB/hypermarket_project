@@ -1,9 +1,9 @@
-package ro.sda.hypermarket.core.dao;
-
+package ro.sda.hypermarket.core.service;
 
 import ro.sda.hypermarket.core.entity.SaleProduct;
 
-public interface SaleProductDAO {
+public interface SaleProductService {
+
     void createSaleProduct(SaleProduct saleProduct);
 
     SaleProduct readSaleProduct(Long saleProductId);
