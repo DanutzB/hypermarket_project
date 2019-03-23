@@ -51,7 +51,9 @@ public class SupplierServiceTest {
 
     @Test
     public void testDelete() {
-// todo delete
+        Supplier supplier = supplierDAO.readSupplier(1L);
+        supplierDAO.deleteSupplier(supplier);
+        Assert.assertNotNull(supplier);
     }
 
 

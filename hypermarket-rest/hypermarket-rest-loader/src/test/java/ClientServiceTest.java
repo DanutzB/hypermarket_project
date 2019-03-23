@@ -50,7 +50,9 @@ public class ClientServiceTest {
 
     @Test
     public void testDelete(){
-        //todo delete
+        Client client = clientDAO.readClient(1L);
+        clientDAO.deleteClient(client);
+        Assert.assertNotNull(client);
     }
 
 }
