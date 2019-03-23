@@ -8,6 +8,8 @@ import ro.sda.hypermarket.core.dao.EmployeeService;
 import ro.sda.hypermarket.core.dao.ProductCategoryDAO;
 import ro.sda.hypermarket.core.entity.Employee;
 import ro.sda.hypermarket.core.entity.ProductCategory;
+import ro.sda.hypermarket.core.service.ProductCategoryService;
+
 import javax.transaction.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -16,7 +18,7 @@ import javax.transaction.Transactional;
 public class ProductCategoryServiceTest {
 
     @Autowired
-    private ProductCategoryDAO productCategoryDAO;
+    private ProductCategoryService productCategoryService;
     @Autowired
     private EmployeeService employeeDAO;
 
@@ -33,13 +35,13 @@ public class ProductCategoryServiceTest {
         ProductCategory productCategory = new ProductCategory();
         productCategory.setName("cleaning_products");
         productCategory.setManager(employee);
-        productCategoryDAO.createProductCategory(productCategory);
+        productCategoryService.createProductCategory(productCategory);
         Assert.assertNotNull(productCategory);
     }
 
     @Test
     public void readProductCategory(){
-        ProductCategory prodCat = productCategoryDAO.readProductCategory(1L);
+        ProductCategory prodCat = productCategoryService.readProductCategory(1L);
         Long actual = prodCat.getId();
         Long expected = 1L;
         System.out.println(prodCat.toString());
@@ -56,17 +58,17 @@ public class ProductCategoryServiceTest {
         employee.setSalary(28000);
         employeeDAO.createEmployee(employee);
 
-        ProductCategory prodCat = productCategoryDAO.readProductCategory(1L);
+        ProductCategory prodCat = productCategoryService.readProductCategory(1L);
         System.out.println("Update:" + prodCat);
         prodCat.setName("electronics");
         prodCat.setManager(employee);
-        productCategoryDAO.updateProductCategory(prodCat);
+        productCategoryService.updateProductCategory(prodCat);
         System.out.println(prodCat);
     }
 
     @Test
     public void deleteProductCategory() {
-        ProductCategory prodCat = productCategoryDAO.deleteProductCategory(1L);
+        ProductCategory prodCat = productCategoryService.deleteProductCategory(1L);
         Assert.assertNotNull(prodCat);
 
     }

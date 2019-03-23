@@ -5,9 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ro.sda.hypermarket.core.dao.DepartmentDAO;
-import ro.sda.hypermarket.core.dao.EmployeeService;
+import ro.sda.hypermarket.core.dao.EmployeeDAO;
 import ro.sda.hypermarket.core.entity.Department;
 import ro.sda.hypermarket.core.entity.Employee;
+import ro.sda.hypermarket.core.service.DepartmentService;
+import ro.sda.hypermarket.core.service.EmployeeService;
+
 import javax.transaction.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -16,10 +19,10 @@ import javax.transaction.Transactional;
 public class DepartmentServiceTest {
 
     @Autowired
-    private DepartmentDAO departmentDAO;
+    private DepartmentService departmentService;
 
     @Autowired
-    private EmployeeService employeeDAO;
+    private EmployeeService employeeService;
     @Test
     public void testCreate(){
         Employee employee = new Employee();
@@ -28,18 +31,18 @@ public class DepartmentServiceTest {
         employee.setCity("Iasiii");
         employee.setJobTitle("soferrr");
         employee.setSalary(40000);
-        employeeDAO.createEmployee(employee);
+        employeeService.createEmployee(employee);
 
         Department department = new Department();
         department.setName("Drinks");
         department.setManager(employee);
-        departmentDAO.createDepartment(department);
+        departmentService.createDepartment(department);
         Assert.assertNotNull(department);
     }
 
     @Test
     public void readDepartment(){
-        Department dep = departmentDAO.readDepartment(1L);
+        Department dep = departmentService.readDepartment(1L);
         Long actual = dep.getId();
         Long expected = 1L;
         System.out.println(dep.toString());
@@ -48,17 +51,17 @@ public class DepartmentServiceTest {
 
     @Test
     public void updateDepartment(){
-        Department dep = departmentDAO.readDepartment(1L);
+        Department dep = departmentService.readDepartment(1L);
         System.out.println("Update:" + dep);
         dep.setName("dairy_products");
 
-        departmentDAO.updateDepartment(dep);
+        departmentService.updateDepartment(dep);
         System.out.println(dep);
     }
 
     @Test
     public void deleteDepartment() {
-        Department dep = departmentDAO.deleteDepartment(1L);
+        Department dep = departmentService.deleteDepartment(1L);
         Assert.assertNotNull(dep);
 
     }

@@ -4,8 +4,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import ro.sda.hypermarket.core.dao.EmployeeService;
+import ro.sda.hypermarket.core.dao.EmployeeDAO;
 import ro.sda.hypermarket.core.entity.Employee;
+import ro.sda.hypermarket.core.service.EmployeeService;
+
 import javax.transaction.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -14,7 +16,7 @@ import javax.transaction.Transactional;
 public class EmployeeServiceTest {
 
     @Autowired
-    private EmployeeService employeeDAO;
+    private EmployeeService employeeService;
     @Test
     public void testCreate(){
         Employee employee = new Employee();
@@ -23,13 +25,13 @@ public class EmployeeServiceTest {
         employee.setCity("Iasi");
         employee.setJobTitle("sofer");
         employee.setSalary(4000);
-        employeeDAO.createEmployee(employee);
+        employeeService.createEmployee(employee);
         Assert.assertNotNull(employee);
     }
 
     @Test
     public void readEmployee(){
-        Employee emp = employeeDAO.readEmployee(2L);
+        Employee emp = employeeService.readEmployee(2L);
         Long actual = emp.getId();
         Long expected = 2L;
         System.out.println(emp.toString());
@@ -38,18 +40,18 @@ public class EmployeeServiceTest {
 
     @Test
     public void updateEmployee(){
-        Employee emp = employeeDAO.readEmployee(1L);
+        Employee emp = employeeService.readEmployee(1L);
         System.out.println("Update:" + emp);
         emp.setFirstName("Toyota");
         emp.setLastName("kamasutra");
         emp.setCity("Suceava");
-        employeeDAO.updateEmployee(emp);
+        employeeService.updateEmployee(emp);
         System.out.println(emp);
     }
 
     @Test
     public void deleteEmployee() {
-        Employee emp = employeeDAO.deleteEmployee(1L);
+        Employee emp = employeeService.deleteEmployee(1L);
         Assert.assertNotNull(emp);
 
     }
