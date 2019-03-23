@@ -12,6 +12,10 @@ import ro.sda.hypermarket.core.entity.Employee;
 import ro.sda.hypermarket.core.entity.Product;
 import ro.sda.hypermarket.core.entity.ProductCategory;
 import ro.sda.hypermarket.core.entity.Supplier;
+import ro.sda.hypermarket.core.service.EmployeeService;
+import ro.sda.hypermarket.core.service.ProductCategoryService;
+import ro.sda.hypermarket.core.service.ProductService;
+import ro.sda.hypermarket.core.service.SupplierService;
 
 import javax.transaction.Transactional;
 
@@ -21,13 +25,13 @@ import javax.transaction.Transactional;
 public class ProductServiceTest {
 
     @Autowired
-    private ProductDAO productDAO;
+    private ProductService productService;
     @Autowired
-    private SupplierDAO supplierDAO;
+    private SupplierService supplierService;
     @Autowired
-    private ProductCategoryDAO productCategoryDAO;
+    private ProductCategoryService productCategoryService;
     @Autowired
-    private EmployeeDAO employeeDAO;
+    private EmployeeService employeeService;
 
     @Test
     public void testCreate(){
@@ -35,7 +39,7 @@ public class ProductServiceTest {
         supplier.setName("George");
         supplier.setContactNo("0751733488");
         supplier.setCity("Iasi");
-        supplierDAO.createSupplier(supplier);
+        supplierService.createSupplier(supplier);
 
         Employee employee = new Employee();
         employee.setFirstName("Vasile");
@@ -43,12 +47,12 @@ public class ProductServiceTest {
         employee.setCity("Iasi");
         employee.setJobTitle("manager");
         employee.setSalary(45000);
-        employeeDAO.createEmployee(employee);
+        employeeService.createEmployee(employee);
 
         ProductCategory productCategory = new ProductCategory();
         productCategory.setName("dairy");
         productCategory.setManager(employee);
-        productCategoryDAO.createProductCategory(productCategory);
+        productCategoryService.createProductCategory(productCategory);
 
         Product product = new Product();
         product.setName("lapte");
@@ -57,13 +61,13 @@ public class ProductServiceTest {
         product.setSupplier(supplier);
         product.setProductCategory(productCategory);
         product.setVendingPrice(5);
-        productDAO.createProduct(product);
+        productService.createProduct(product);
         Assert.assertNotNull(product);
     }
 
     @Test
     public void readProduct(){
-        Product prod = productDAO.readProduct(1L);
+        Product prod = productService.readProduct(1L);
         Long actual = prod.getId();
         Long expected = 1L;
         System.out.println(prod.toString());
@@ -76,21 +80,21 @@ public class ProductServiceTest {
         supplier.setName("five continents");
         supplier.setContactNo("0477998822");
         supplier.setCity("Iasi");
-        supplierDAO.createSupplier(supplier);
+        supplierService.createSupplier(supplier);
 
-        Product prod = productDAO.readProduct(1L);
+        Product prod = productService.readProduct(1L);
         System.out.println("Update:" + prod);
         prod.setName("lapte");
         prod.setSupplierPrice(3);
         prod.setStock(205);
         prod.setSupplier(supplier);
-        productDAO.createProduct(prod);
+        productService.createProduct(prod);
         System.out.println(prod);
     }
 
     @Test
     public void deleteEmployee() {
-        Product prod = productDAO.deleteProduct(1L);
+        Product prod = productService.deleteProduct(1L);
         Assert.assertNotNull(prod);
 
     }
