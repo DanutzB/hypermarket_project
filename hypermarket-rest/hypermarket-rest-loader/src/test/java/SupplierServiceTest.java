@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-import ro.sda.hypermarket.core.dao.SupplierDAO;
+import ro.sda.hypermarket.core.dao.SupplierService;
 import ro.sda.hypermarket.core.entity.Supplier;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -14,7 +14,7 @@ import ro.sda.hypermarket.core.entity.Supplier;
 public class SupplierServiceTest {
 
     @Autowired
-    private SupplierDAO supplierDAO;
+    private SupplierService supplierService;
 
     @Test
     public void testCreate() {
@@ -22,13 +22,13 @@ public class SupplierServiceTest {
         supplier.setName("George");
         supplier.setContactNo("0751733488");
         supplier.setCity("Iasi");
-        supplierDAO.createSupplier(supplier);
+        supplierService.createSupplier(supplier);
         Assert.assertNotNull(supplier);
     }
 
     @Test
     public void testRead() {
-        Supplier sup = supplierDAO.readSupplier(1L);
+        Supplier sup = supplierService.readSupplier(1L);
         Long actual = sup.getId();
         Long expected = 1L;
         System.out.println(sup.toString());
@@ -37,13 +37,13 @@ public class SupplierServiceTest {
 
     @Test
     public void testUpdate() {
-        Supplier sup = supplierDAO.readSupplier(2L);
+        Supplier sup = supplierService.readSupplier(2L);
         System.out.println("Update " + sup + " to:");
         sup.setName("Ionut");
         sup.setContactNo("0766666666");
         sup.setCity("Oradea");
-        supplierDAO.updateSupplier(sup);
-        Supplier expected = supplierDAO.readSupplier(2L);
+        supplierService.updateSupplier(sup);
+        Supplier expected = supplierService.readSupplier(2L);
         Supplier actual = sup;
         System.out.println(expected.toString());
         Assert.assertEquals(expected, actual);
@@ -51,8 +51,8 @@ public class SupplierServiceTest {
 
     @Test
     public void testDelete() {
-        Supplier supplier = supplierDAO.readSupplier(1L);
-        supplierDAO.deleteSupplier(supplier);
+        Supplier supplier = supplierService.readSupplier(1L);
+        supplierService.deleteSupplier(supplier);
         Assert.assertNotNull(supplier);
     }
 

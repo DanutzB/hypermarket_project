@@ -4,7 +4,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import ro.sda.hypermarket.core.dao.EmployeeDAO;
+import ro.sda.hypermarket.core.dao.EmployeeService;
 import ro.sda.hypermarket.core.entity.Employee;
 import javax.transaction.Transactional;
 
@@ -14,7 +14,7 @@ import javax.transaction.Transactional;
 public class EmployeeServiceTest {
 
     @Autowired
-    private EmployeeDAO employeeDAO;
+    private EmployeeService employeeDAO;
     @Test
     public void testCreate(){
         Employee employee = new Employee();

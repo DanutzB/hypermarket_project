@@ -3,15 +3,15 @@ package ro.sda.hypermarket.core.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ro.sda.hypermarket.core.dao.ClientDAO;
+import ro.sda.hypermarket.core.dao.ClientService;
 import ro.sda.hypermarket.core.entity.Client;
 
 @Service
 @Transactional(readOnly = true, rollbackFor = Exception.class)
-public class ClientServiceImpl implements ClientService {
+public class ClientServiceImpl implements ro.sda.hypermarket.core.service.ClientService {
 
     @Autowired
-    private ClientDAO clientDAO;
+    private ClientService clientDAO;
 
 
     @Override

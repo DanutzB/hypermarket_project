@@ -5,8 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-import ro.sda.hypermarket.core.dao.*;
 import ro.sda.hypermarket.core.entity.*;
+import ro.sda.hypermarket.core.service.*;
+import ro.sda.hypermarket.core.service.EmployeeService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/spring-config/spring-root.xml")
@@ -14,19 +15,19 @@ import ro.sda.hypermarket.core.entity.*;
 public class SaleProductServiceTest {
 
     @Autowired
-    private SaleProductDAO saleProductDAO;
+    private SaleProductService saleProductService;
 
     @Autowired
-    private SupplierDAO supplierDAO;
+    private SupplierService supplierService;
 
     @Autowired
-    private EmployeeDAO employeeDAO;
+    private EmployeeService employeeService;
 
     @Autowired
-    private ProductCategoryDAO productCategoryDAO;
+    private ProductCategoryService productCategoryService;
 
     @Autowired
-    private ProductDAO productDAO;
+    private ProductService productService;
 
     @Test
     public void testCreate(){
@@ -35,7 +36,7 @@ public class SaleProductServiceTest {
         supplier.setName("George");
         supplier.setContactNo("0751733488");
         supplier.setCity("Iasi");
-        supplierDAO.createSupplier(supplier);
+        supplierService.createSupplier(supplier);
 
         Employee employee = new Employee();
         employee.setFirstName("Vasile");
@@ -43,12 +44,12 @@ public class SaleProductServiceTest {
         employee.setCity("Iasi");
         employee.setJobTitle("manager");
         employee.setSalary(45000);
-        employeeDAO.createEmployee(employee);
+        employeeService.createEmployee(employee);
 
         ProductCategory productCategory = new ProductCategory();
         productCategory.setName("dairy");
         productCategory.setManager(employee);
-        productCategoryDAO.createProductCategory(productCategory);
+        productCategoryService.createProductCategory(productCategory);
 
         Product product = new Product();
         product.setName("lapte");
@@ -57,17 +58,17 @@ public class SaleProductServiceTest {
         product.setSupplier(supplier);
         product.setProductCategory(productCategory);
         product.setVendingPrice(5);
-        productDAO.createProduct(product);
+        productService.createProduct(product);
 
         SaleProduct saleProduct = new SaleProduct();
         saleProduct.setQuantity(334455L);
         saleProduct.setProduct(product);
-        saleProductDAO.createSaleProduct(saleProduct);
+        saleProductService.createSaleProduct(saleProduct);
     }
 
     @Test
     public void testRead(){
-        SaleProduct saleProduct = saleProductDAO.readSaleProduct(1L);
+        SaleProduct saleProduct = saleProductService.readSaleProduct(1L);
         Long actual = saleProduct.getId();
         Long expected = 1L;
         System.out.println(saleProduct.toString());
@@ -81,7 +82,7 @@ public class SaleProductServiceTest {
         supplier.setName("George");
         supplier.setContactNo("0751733488");
         supplier.setCity("Iasi");
-        supplierDAO.createSupplier(supplier);
+        supplierService.createSupplier(supplier);
 
         Employee employee = new Employee();
         employee.setFirstName("Vasile");
@@ -89,12 +90,12 @@ public class SaleProductServiceTest {
         employee.setCity("Iasi");
         employee.setJobTitle("manager");
         employee.setSalary(45000);
-        employeeDAO.createEmployee(employee);
+        employeeService.createEmployee(employee);
 
         ProductCategory productCategory = new ProductCategory();
         productCategory.setName("dairy");
         productCategory.setManager(employee);
-        productCategoryDAO.createProductCategory(productCategory);
+        productCategoryService.createProductCategory(productCategory);
 
         Product product = new Product();
         product.setName("lapte");
@@ -103,16 +104,16 @@ public class SaleProductServiceTest {
         product.setSupplier(supplier);
         product.setProductCategory(productCategory);
         product.setVendingPrice(5);
-        productDAO.createProduct(product);
+        productService.createProduct(product);
 
-        SaleProduct saleProduct = saleProductDAO.readSaleProduct(1L);
+        SaleProduct saleProduct = saleProductService.readSaleProduct(1L);
         System.out.println("Update " + saleProduct + " to:");
         saleProduct.setProduct(product);
         saleProduct.setQuantity(12L);
         saleProduct.setProductId(product.getId());
 
-        saleProductDAO.updateSaleProduct(saleProduct);
-        SaleProduct expected = saleProductDAO.readSaleProduct(1L);
+        saleProductService.updateSaleProduct(saleProduct);
+        SaleProduct expected = saleProductService.readSaleProduct(1L);
         SaleProduct actual = saleProduct;
         System.out.println(expected.toString());
         Assert.assertEquals(expected, actual);
@@ -120,8 +121,8 @@ public class SaleProductServiceTest {
 
     @Test
     public void testDelete(){
-        SaleProduct saleProduct = saleProductDAO.readSaleProduct(1L);
-        saleProductDAO.deleteSaleProduct(saleProduct);
+        SaleProduct saleProduct = saleProductService.readSaleProduct(1L);
+        saleProductService.deleteSaleProduct(saleProduct);
         Assert.assertNotNull(saleProduct);
     }
 }

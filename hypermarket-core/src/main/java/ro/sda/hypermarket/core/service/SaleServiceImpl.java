@@ -3,15 +3,15 @@ package ro.sda.hypermarket.core.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ro.sda.hypermarket.core.dao.SaleDAO;
+import ro.sda.hypermarket.core.dao.SaleService;
 import ro.sda.hypermarket.core.entity.Sale;
 
 @Service
 @Transactional(readOnly = true, rollbackFor = Exception.class)
-public class SaleServiceImpl implements SaleService {
+public class SaleServiceImpl implements ro.sda.hypermarket.core.service.SaleService {
 
     @Autowired
-    private SaleDAO saleDAO;
+    private SaleService saleDAO;
 
     @Override
     public void createSale(Sale sale) {

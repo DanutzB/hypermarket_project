@@ -3,16 +3,16 @@ package ro.sda.hypermarket.core.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ro.sda.hypermarket.core.dao.SupplierDAO;
+import ro.sda.hypermarket.core.dao.SupplierService;
 import ro.sda.hypermarket.core.entity.Supplier;
 
 @Service
 @Transactional(readOnly = true, rollbackFor = Exception.class)
-public class SupplierServiceImpl implements SupplierService {
+public class SupplierServiceImpl implements ro.sda.hypermarket.core.service.SupplierService {
 
     @Autowired
-    private SupplierDAO supplierDAO;
-    
+    private SupplierService supplierDAO;
+
     @Override
     public void createSupplier(Supplier supplier) {
         supplierDAO.createSupplier(supplier);

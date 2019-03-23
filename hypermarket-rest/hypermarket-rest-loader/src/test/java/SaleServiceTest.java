@@ -5,9 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-import ro.sda.hypermarket.core.dao.ClientDAO;
-import ro.sda.hypermarket.core.dao.EmployeeDAO;
-import ro.sda.hypermarket.core.dao.SaleDAO;
+import ro.sda.hypermarket.core.dao.ClientService;
+import ro.sda.hypermarket.core.dao.EmployeeService;
+import ro.sda.hypermarket.core.dao.SaleService;
 import ro.sda.hypermarket.core.entity.Client;
 import ro.sda.hypermarket.core.entity.Employee;
 import ro.sda.hypermarket.core.entity.Sale;
@@ -18,13 +18,13 @@ import ro.sda.hypermarket.core.entity.Sale;
 public class SaleServiceTest {
 
     @Autowired
-    private SaleDAO saleDAO;
+    private SaleService saleService;
 
     @Autowired
-    private EmployeeDAO employeeDAO;
+    private EmployeeService employeeService;
 
     @Autowired
-    private ClientDAO clientDAO;
+    private ClientService clientService;
 
     @Test
     public void testCreate(){
@@ -34,23 +34,23 @@ public class SaleServiceTest {
         employee.setCity("Iasi");
         employee.setJobTitle("sofer");
         employee.setSalary(4000);
-        employeeDAO.createEmployee(employee);
+        employeeService.createEmployee(employee);
 
         Client client = new Client();
         client.setName("Cristache");
-        clientDAO.createClient(client);
+        clientService.createClient(client);
 
         Sale sale = new Sale();
         sale.setClientId(client);
         sale.setEmployeeId(employee.getId());
         sale.setPurchaseNumber(1234L);
         sale.setPurchaseValue(4545L);
-        saleDAO.createSale(sale);
+        saleService.createSale(sale);
         Assert.assertNotNull(sale);
     }
     @Test
     public void testRead() {
-        Sale sale = saleDAO.readSale(1L);
+        Sale sale = saleService.readSale(1L);
         Long actual = sale.getId();
         Long expected = 1L;
         System.out.println(sale.toString());
@@ -64,29 +64,29 @@ public class SaleServiceTest {
         employee.setCity("Oradea");
         employee.setJobTitle("vanzator");
         employee.setSalary(3000);
-        employeeDAO.createEmployee(employee);
+        employeeService.createEmployee(employee);
 
         Client client = new Client();
         client.setName("Chiorecu");
-        clientDAO.createClient(client);
+        clientService.createClient(client);
 
-        Sale sale = saleDAO.readSale(1L);
+        Sale sale = saleService.readSale(1L);
         System.out.println("Update " + sale + " to:");
         sale.setPurchaseValue(6666L);
         sale.setPurchaseNumber(667788L);
         sale.setEmployeeId(employee.getId());
         sale.setClientId(client);
 
-        saleDAO.updateSale(sale);
-        Sale expected = saleDAO.readSale(1L);
+        saleService.updateSale(sale);
+        Sale expected = saleService.readSale(1L);
         Sale actual = sale;
         System.out.println(expected.toString());
         Assert.assertEquals(expected, actual);
     }
     @Test
     public void testDelete() {
-        Sale sale = saleDAO.readSale(1L);
-        saleDAO.deleteSale(sale);
+        Sale sale = saleService.readSale(1L);
+        saleService.deleteSale(sale);
         Assert.assertNotNull(sale);
     }
 }
