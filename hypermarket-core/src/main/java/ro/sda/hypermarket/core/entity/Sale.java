@@ -5,7 +5,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "sales", schema = "hypermarket")
-public class Sales {
+public class Sale {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -68,12 +68,12 @@ public class Sales {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Sales sales = (Sales) o;
-        return id.equals(sales.id) &&
-                purchaseNumber.equals(sales.purchaseNumber) &&
-                purchaseValue.equals(sales.purchaseValue) &&
-                clientId.equals(sales.clientId) &&
-                employeeId.equals(sales.employeeId);
+        Sale sale = (Sale) o;
+        return id.equals(sale.id) &&
+                purchaseNumber.equals(sale.purchaseNumber) &&
+                purchaseValue.equals(sale.purchaseValue) &&
+                clientId.equals(sale.clientId) &&
+                employeeId.equals(sale.employeeId);
     }
 
     @Override
