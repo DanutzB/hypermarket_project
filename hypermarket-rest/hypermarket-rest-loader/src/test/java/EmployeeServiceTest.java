@@ -6,8 +6,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ro.sda.hypermarket.core.dao.EmployeeDAO;
 import ro.sda.hypermarket.core.entity.Employee;
-
-
 import javax.transaction.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
