@@ -2,6 +2,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +31,7 @@ public class SaleProductServiceTest {
     private ProductService productService;
 
     @Test
+    @Rollback(false)
     public void testCreate(){
 
         Supplier supplier = new Supplier();
@@ -44,12 +46,12 @@ public class SaleProductServiceTest {
         employee.setCity("Iasi");
         employee.setJobTitle("manager");
         employee.setSalary(45000);
-        employeeService.createEmployee(employee);
+        employeeService.createEmployee(employee, false);
 
         ProductCategory productCategory = new ProductCategory();
         productCategory.setName("dairy");
         productCategory.setManager(employee);
-        productCategoryService.createProductCategory(productCategory);
+        productCategoryService.createProductCategory(productCategory, false);
 
         Product product = new Product();
         product.setName("lapte");
@@ -58,17 +60,18 @@ public class SaleProductServiceTest {
         product.setSupplier(supplier);
         product.setProductCategory(productCategory);
         product.setVendingPrice(5);
-        productService.createProduct(product);
+        productService.createProduct(product, false);
 
         SaleProduct saleProduct = new SaleProduct();
         saleProduct.setQuantity(334455L);
         saleProduct.setProduct(product);
-        saleProductService.createSaleProduct(saleProduct);
+        saleProductService.createSaleProduct(saleProduct, false);
     }
 
     @Test
+    @Rollback(false)
     public void testRead(){
-        SaleProduct saleProduct = saleProductService.readSaleProduct(1L);
+        SaleProduct saleProduct = saleProductService.readSaleProduct(1L, false);
         Long actual = saleProduct.getId();
         Long expected = 1L;
         System.out.println(saleProduct.toString());
@@ -76,6 +79,7 @@ public class SaleProductServiceTest {
     }
 
     @Test
+    @Rollback(false)
     public void testUpdate(){
 
         Supplier supplier = new Supplier();
@@ -90,12 +94,12 @@ public class SaleProductServiceTest {
         employee.setCity("Iasi");
         employee.setJobTitle("manager");
         employee.setSalary(45000);
-        employeeService.createEmployee(employee);
+        employeeService.createEmployee(employee, false);
 
         ProductCategory productCategory = new ProductCategory();
         productCategory.setName("dairy");
         productCategory.setManager(employee);
-        productCategoryService.createProductCategory(productCategory);
+        productCategoryService.createProductCategory(productCategory, false);
 
         Product product = new Product();
         product.setName("lapte");
@@ -104,25 +108,26 @@ public class SaleProductServiceTest {
         product.setSupplier(supplier);
         product.setProductCategory(productCategory);
         product.setVendingPrice(5);
-        productService.createProduct(product);
+        productService.createProduct(product,false);
 
-        SaleProduct saleProduct = saleProductService.readSaleProduct(1L);
+        SaleProduct saleProduct = saleProductService.readSaleProduct(1L, false);
         System.out.println("Update " + saleProduct + " to:");
         saleProduct.setProduct(product);
         saleProduct.setQuantity(12L);
         saleProduct.setProductId(product.getId());
 
-        saleProductService.updateSaleProduct(saleProduct);
-        SaleProduct expected = saleProductService.readSaleProduct(1L);
+        saleProductService.updateSaleProduct(saleProduct, false);
+        SaleProduct expected = saleProductService.readSaleProduct(1L, false);
         SaleProduct actual = saleProduct;
         System.out.println(expected.toString());
         Assert.assertEquals(expected, actual);
     }
 
     @Test
+    @Rollback(false)
     public void testDelete(){
-        SaleProduct saleProduct = saleProductService.readSaleProduct(1L);
-        saleProductService.deleteSaleProduct(saleProduct);
+        SaleProduct saleProduct = saleProductService.readSaleProduct(1L, false);
+        saleProductService.deleteSaleProduct(saleProduct,false);
         Assert.assertNotNull(saleProduct);
     }
 }

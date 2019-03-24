@@ -8,7 +8,7 @@ public interface EmployeeDAO {
 
     Employee readEmployee(Long employeeId);
 
-    void updateEmployee(Employee employee);
+    Employee updateEmployee(Employee employee);
 
-    Employee deleteEmployee(Long employeeId);
+    void deleteEmployee(Long employeeId);
 }

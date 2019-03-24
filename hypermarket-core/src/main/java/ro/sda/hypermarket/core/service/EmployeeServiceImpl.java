@@ -5,30 +5,47 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ro.sda.hypermarket.core.dao.EmployeeDAO;
 import ro.sda.hypermarket.core.entity.Employee;
+import ro.sda.hypermarket.core.repository.EmployeeRepository;
 
 @Service
 @Transactional(readOnly = true, rollbackFor = Exception.class)
-public class EmployeeServiceImpl implements ro.sda.hypermarket.core.service.EmployeeService {
+public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
-    private EmployeeService employeeDAO;
+    private EmployeeDAO employeeDAO;
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
     @Override
-    public void createEmployee(Employee employee) {
-        employeeDAO.createEmployee(employee);
+    public void createEmployee(Employee employee, boolean useHibernate) {
+        if (useHibernate) {
+            employeeDAO.createEmployee(employee);
+        }
+        employeeRepository.save(employee);
     }
 
     @Override
-    public Employee readEmployee(Long employeeId) {
-        return employeeDAO.readEmployee(employeeId);
+    public Employee readEmployee(Long employeeId, boolean useHibernate) {
+        if (useHibernate) {
+            return employeeDAO.readEmployee(employeeId);
+        }
+        return employeeRepository.findById(employeeId);
     }
 
     @Override
-    public void updateEmployee(Employee employee) {
-        employeeDAO.updateEmployee(employee);
+    public Employee updateEmployee(Employee employee, boolean useHibernate) {
+        if (useHibernate) {
+            return employeeDAO.updateEmployee(employee);
+        }
+        return employeeRepository.save(employee);
     }
 
     @Override
-    public Employee deleteEmployee(Long employeeId) {
-        return employeeDAO.deleteEmployee(employeeId);
+    public void deleteEmployee(Long employeeId, boolean useHibernate) {
+        if (useHibernate) {
+            employeeDAO.deleteEmployee(employeeId);
+        }
+        employeeRepository.delete(employeeId);
     }
 
 }

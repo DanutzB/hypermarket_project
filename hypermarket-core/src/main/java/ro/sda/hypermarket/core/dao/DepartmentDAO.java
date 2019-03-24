@@ -4,12 +4,12 @@ import ro.sda.hypermarket.core.entity.Department;
 
 
 public interface DepartmentDAO {
-    void createDepartment(Department department);
+    Department createDepartment(Department department);
 
     Department readDepartment(Long departmentId);
 
-    void updateDepartment(Department department);
+    Department updateDepartment(Department department);
 
-    Department deleteDepartment(Long departmentId);
+    void deleteDepartment(Long departmentId);
 
 }

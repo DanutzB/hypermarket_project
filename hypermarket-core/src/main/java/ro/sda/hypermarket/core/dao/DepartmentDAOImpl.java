@@ -17,8 +17,9 @@ public class DepartmentDAOImpl implements DepartmentDAO {
     private SessionFactory sessionFactory;
 
     @Override
-    public void createDepartment(Department department) {
+    public Department createDepartment(Department department) {
         sessionFactory.getCurrentSession().save(department);
+        return department;
     }
 
     @Override
@@ -28,7 +29,7 @@ public class DepartmentDAOImpl implements DepartmentDAO {
     }
 
     @Override
-    public void updateDepartment(Department department) {
+    public Department updateDepartment(Department department) {
 
         Session session = sessionFactory.openSession();
         Transaction tx = null;
@@ -45,16 +46,17 @@ public class DepartmentDAOImpl implements DepartmentDAO {
         }finally {
             session.close();
         }
+        return  department;
     }
 
     @Override
-    public Department deleteDepartment(Long id) {
+    public void deleteDepartment(Long id) {
         Transaction tr = sessionFactory.getCurrentSession().beginTransaction();
         Department found = (Department) sessionFactory.getCurrentSession().get(Department.class, id);
         sessionFactory.getCurrentSession().delete(found);
         sessionFactory.getCurrentSession().flush();
         tr.commit();
-        return found;
+
     }
 
 

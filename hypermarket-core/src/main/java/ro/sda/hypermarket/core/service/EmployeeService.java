@@ -3,12 +3,13 @@ package ro.sda.hypermarket.core.service;
 import ro.sda.hypermarket.core.entity.Employee;
 
 public interface EmployeeService {
-    void createEmployee(Employee employee);
 
-    Employee readEmployee(Long employeeId);
+    void createEmployee(Employee employee, boolean useHibernate);
 
-    void updateEmployee(Employee employee);
+    Employee readEmployee(Long employeeId, boolean useHibernate);
 
-    Employee deleteEmployee(Long employeeId);
+    Employee updateEmployee(Employee employee, boolean useHibernate);
+
+    void deleteEmployee(Long employeeId, boolean useHibernate);
 
 }

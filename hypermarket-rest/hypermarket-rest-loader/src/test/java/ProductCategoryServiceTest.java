@@ -2,6 +2,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ro.sda.hypermarket.core.entity.Employee;
@@ -22,6 +23,7 @@ public class ProductCategoryServiceTest {
     private EmployeeService employeeService;
 
     @Test
+    @Rollback(false)
     public void testCreate(){
         Employee employee = new Employee();
         employee.setFirstName("Irinel");
@@ -29,18 +31,19 @@ public class ProductCategoryServiceTest {
         employee.setCity("Iasi");
         employee.setJobTitle("salesman");
         employee.setSalary(25000);
-        employeeService.createEmployee(employee);
+        employeeService.createEmployee(employee,false);
 
         ProductCategory productCategory = new ProductCategory();
         productCategory.setName("cleaning_products");
         productCategory.setManager(employee);
-        productCategoryService.createProductCategory(productCategory);
+        productCategoryService.createProductCategory(productCategory, false);
         Assert.assertNotNull(productCategory);
     }
 
     @Test
+    @Rollback(false)
     public void readProductCategory(){
-        ProductCategory prodCat = productCategoryService.readProductCategory(1L);
+        ProductCategory prodCat = productCategoryService.readProductCategory(1L, false);
         Long actual = prodCat.getId();
         Long expected = 1L;
         System.out.println(prodCat.toString());
@@ -48,6 +51,7 @@ public class ProductCategoryServiceTest {
     }
 
     @Test
+    @Rollback(false)
     public void updateProductCategory(){
         Employee employee = new Employee();
         employee.setFirstName("Doru");
@@ -55,20 +59,22 @@ public class ProductCategoryServiceTest {
         employee.setCity("Iasi");
         employee.setJobTitle("assistent");
         employee.setSalary(28000);
-        employeeService.createEmployee(employee);
+        employeeService.createEmployee(employee, false);
 
-        ProductCategory prodCat = productCategoryService.readProductCategory(1L);
+        ProductCategory prodCat = productCategoryService.readProductCategory(1L, false);
         System.out.println("Update:" + prodCat);
         prodCat.setName("electronics");
         prodCat.setManager(employee);
-        productCategoryService.updateProductCategory(prodCat);
+        productCategoryService.updateProductCategory(prodCat, false);
         System.out.println(prodCat);
     }
 
     @Test
+    @Rollback(false)
     public void deleteProductCategory() {
-        ProductCategory prodCat = productCategoryService.deleteProductCategory(1L);
-        Assert.assertNotNull(prodCat);
+        productCategoryService.deleteProductCategory(1L, false);
+        ProductCategory fromdb = productCategoryService.readProductCategory(1L, false);
+        Assert.assertNull(fromdb);
 
     }
 

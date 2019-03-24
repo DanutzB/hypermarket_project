@@ -5,31 +5,48 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ro.sda.hypermarket.core.dao.ProductCategoryDAO;
 import ro.sda.hypermarket.core.entity.ProductCategory;
+import ro.sda.hypermarket.core.repository.ProductCategoryRepository;
 
 @Service
 @Transactional(readOnly = true, rollbackFor = Exception.class)
-public class ProductCategoryServiceImpl implements ProductCategoryService{
+public class ProductCategoryServiceImpl implements ProductCategoryService {
 
     @Autowired
     private ProductCategoryDAO productCategoryDAO;
+    @Autowired
+    private ProductCategoryRepository productCategoryRepository;
 
     @Override
-    public void createProductCategory(ProductCategory productCategory) {
-        productCategoryDAO.createProductCategory(productCategory);
+    public void createProductCategory(ProductCategory productCategory, boolean useHibernate) {
+        if (useHibernate) {
+            productCategoryDAO.createProductCategory(productCategory);
+        }
+        productCategoryRepository.save(productCategory);
     }
 
     @Override
-    public ProductCategory readProductCategory(Long productCategoryId) {
-        return productCategoryDAO.readProductCategory(productCategoryId);
+    public ProductCategory readProductCategory(Long productCategoryId, boolean useHibernate) {
+        if (useHibernate) {
+            return productCategoryDAO.readProductCategory(productCategoryId);
+        }
+        return productCategoryRepository.findById(productCategoryId);
     }
 
     @Override
-    public void updateProductCategory(ProductCategory productCategory) {
-        productCategoryDAO.updateProductCategory(productCategory);
+    public void updateProductCategory(ProductCategory productCategory, boolean useHibernate) {
+        if (useHibernate) {
+            productCategoryDAO.updateProductCategory(productCategory);
+        }
+        productCategoryRepository.save(productCategory);
     }
 
     @Override
-    public ProductCategory deleteProductCategory(Long productCategoryId) {
-        return productCategoryDAO.deleteProductCategory(productCategoryId);
+    public void deleteProductCategory(Long productCategoryId, boolean useHibernate) {
+        if (useHibernate) {
+            productCategoryDAO.deleteProductCategory(productCategoryId);
+        }
+        productCategoryRepository.delete(productCategoryId);
+
     }
+
 }

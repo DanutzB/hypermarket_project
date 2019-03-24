@@ -24,7 +24,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
     @Override
-    public void updateEmployee(Employee employee) {
+    public Employee updateEmployee(Employee employee) {
 
         Session session = sessionFactory.openSession();
         Transaction tx = null;
@@ -45,16 +45,17 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         }finally {
             session.close();
         }
+        return employee;
     }
 
    @Override
-   public Employee deleteEmployee(Long id) {
+   public void deleteEmployee(Long id) {
        Transaction tr = sessionFactory.getCurrentSession().beginTransaction();
        Employee found = (Employee) sessionFactory.getCurrentSession().get(Employee.class, id);
        sessionFactory.getCurrentSession().delete(found);
        sessionFactory.getCurrentSession().flush();
        tr.commit();
-       return found;
+
    }
 
 

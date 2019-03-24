@@ -3,11 +3,12 @@ package ro.sda.hypermarket.core.service;
 import ro.sda.hypermarket.core.entity.Department;
 
 public interface DepartmentService {
-    void createDepartment(Department department);
 
-    Department readDepartment(Long departmentId);
+    Department createDepartment(Department department, boolean useHibernate);
 
-    void updateDepartment(Department department);
+    Department readDepartment(Long departmentId, boolean useHibernate);
 
-    Department deleteDepartment(Long departmentId);
+    Department updateDepartment(Department department, boolean useHibernate);
+
+    Department deleteDepartment(Long departmentId, boolean useHibernate);
 }

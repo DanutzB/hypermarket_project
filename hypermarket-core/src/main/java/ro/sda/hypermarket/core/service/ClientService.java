@@ -4,12 +4,12 @@ import ro.sda.hypermarket.core.entity.Client;
 
 public interface ClientService {
 
-    void createClient(Client client);
+    Client createClient(Client client, boolean useHibernate);
 
-    Client readClient(Long clientId);
+    Client readClient(Long clientId, boolean useHibernate);
 
-    Client updateClient(Client client);
+    Client updateClient(Client client, boolean useHibernate);
 
-    void deleteClient(Client client);
+    void deleteClient(Client client, boolean useHibernate);
 
 }
