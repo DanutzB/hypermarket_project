@@ -3,7 +3,7 @@ package ro.sda.hypermarket.core.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ro.sda.hypermarket.core.dao.EmployeeService;
+import ro.sda.hypermarket.core.dao.EmployeeDAO;
 import ro.sda.hypermarket.core.entity.Employee;
 
 @Service

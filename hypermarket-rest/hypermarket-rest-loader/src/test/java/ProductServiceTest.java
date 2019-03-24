@@ -39,7 +39,7 @@ public class ProductServiceTest {
         supplier.setName("George");
         supplier.setContactNo("0751733488");
         supplier.setCity("Iasi");
-        supplierService.createSupplier(supplier);
+        supplierService.createSupplier(supplier, false);
 
         Employee employee = new Employee();
         employee.setFirstName("Vasile");
@@ -80,7 +80,7 @@ public class ProductServiceTest {
         supplier.setName("five continents");
         supplier.setContactNo("0477998822");
         supplier.setCity("Iasi");
-        supplierService.createSupplier(supplier);
+        supplierService.createSupplier(supplier, false);
 
         Product prod = productService.readProduct(1L);
         System.out.println("Update:" + prod);

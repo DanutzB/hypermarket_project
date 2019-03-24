@@ -4,7 +4,7 @@ import ro.sda.hypermarket.core.entity.Supplier;
 
 public interface SupplierDAO {
 
-    void createSupplier(Supplier supplier);
+    Supplier createSupplier(Supplier supplier);
 
     Supplier readSupplier(Long supplierId);
 

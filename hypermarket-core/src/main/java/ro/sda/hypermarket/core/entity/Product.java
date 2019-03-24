@@ -1,15 +1,13 @@
 package ro.sda.hypermarket.core.entity;
 
+import ro.sda.hypermarket.core.base.BaseEntity;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name="products", schema = "hypermarket")
-public class Product {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Product extends BaseEntity {
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -30,14 +28,6 @@ public class Product {
 
     @Column(name = "vending_price", nullable = false)
     private Integer vendingPrice;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -92,7 +82,7 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return id.equals(product.id) &&
+        return getId() ==(product.getId()) &&
                 name.equals(product.name) &&
                 supplierPrice.equals(product.supplierPrice) &&
                 stock.equals(product.stock) &&
@@ -103,6 +93,6 @@ public class Product {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, supplierPrice, stock, supplier, productCategory, vendingPrice);
+        return Objects.hash(getId(), name, supplierPrice, stock, supplier, productCategory, vendingPrice);
     }
 }

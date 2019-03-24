@@ -2,6 +2,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,42 +18,46 @@ public class SupplierServiceTest {
     private SupplierService supplierService;
 
     @Test
+    @Rollback(false)
     public void testCreate() {
         Supplier supplier = new Supplier();
-        supplier.setName("George");
+        supplier.setName("Gigi");
         supplier.setContactNo("0751733488");
         supplier.setCity("Iasi");
-        supplierService.createSupplier(supplier);
+        supplierService.createSupplier(supplier, false);
         Assert.assertNotNull(supplier);
     }
 
     @Test
+    @Rollback(false)
     public void testRead() {
-        Supplier sup = supplierService.readSupplier(1L);
+        Supplier sup = supplierService.readSupplier(2L, false);
         Long actual = sup.getId();
-        Long expected = 1L;
+        Long expected = 2L;
         System.out.println(sup.toString());
         Assert.assertEquals(expected, actual);
     }
 
     @Test
+    @Rollback(false)
     public void testUpdate() {
-        Supplier sup = supplierService.readSupplier(2L);
+        Supplier sup = supplierService.readSupplier(2L, false);
         System.out.println("Update " + sup + " to:");
         sup.setName("Ionut");
         sup.setContactNo("0766666666");
         sup.setCity("Oradea");
-        supplierService.updateSupplier(sup);
-        Supplier expected = supplierService.readSupplier(2L);
+        supplierService.updateSupplier(sup, false);
+        Supplier expected = supplierService.readSupplier(2L, false);
         Supplier actual = sup;
         System.out.println(expected.toString());
         Assert.assertEquals(expected, actual);
     }
 
     @Test
+    @Rollback(false)
     public void testDelete() {
-        Supplier supplier = supplierService.readSupplier(1L);
-        supplierService.deleteSupplier(supplier);
+        Supplier supplier = supplierService.readSupplier(9L, false);
+        supplierService.deleteSupplier(supplier, false);
         Assert.assertNotNull(supplier);
     }
 

@@ -36,7 +36,7 @@ public class SaleProductServiceTest {
         supplier.setName("George");
         supplier.setContactNo("0751733488");
         supplier.setCity("Iasi");
-        supplierService.createSupplier(supplier);
+        supplierService.createSupplier(supplier, false);
 
         Employee employee = new Employee();
         employee.setFirstName("Vasile");
@@ -82,7 +82,7 @@ public class SaleProductServiceTest {
         supplier.setName("George");
         supplier.setContactNo("0751733488");
         supplier.setCity("Iasi");
-        supplierService.createSupplier(supplier);
+        supplierService.createSupplier(supplier, false);
 
         Employee employee = new Employee();
         employee.setFirstName("Vasile");

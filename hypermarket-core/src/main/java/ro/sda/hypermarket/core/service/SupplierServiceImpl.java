@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ro.sda.hypermarket.core.dao.SupplierDAO;
 import ro.sda.hypermarket.core.entity.Supplier;
+import ro.sda.hypermarket.core.repository.SupplierRepository;
 
 @Service
 @Transactional(readOnly = true, rollbackFor = Exception.class)
@@ -13,24 +14,38 @@ public class SupplierServiceImpl implements SupplierService {
     @Autowired
     private SupplierDAO supplierDAO;
 
-    @Override
-    public void createSupplier(Supplier supplier) {
+    @Autowired
+    private SupplierRepository supplierRepository;
 
-        supplierDAO.createSupplier(supplier);
+    @Override
+    public Supplier createSupplier(Supplier supplier, boolean useHibernate) {
+        if(useHibernate) {
+            return supplierDAO.createSupplier(supplier);
+        }
+        return supplierRepository.save(supplier);
     }
 
     @Override
-    public Supplier readSupplier(Long supplierId) {
+    public Supplier readSupplier(Long supplierId, boolean useHibernate) {
+        if(useHibernate){
         return supplierDAO.readSupplier(supplierId);
+        }
+        return supplierRepository.findById(supplierId);
     }
 
     @Override
-    public Supplier updateSupplier(Supplier supplier) {
-        return supplierDAO.updateSupplier(supplier);
+    public Supplier updateSupplier(Supplier supplier, boolean useHibernate) {
+        if(useHibernate){
+            return supplierDAO.updateSupplier(supplier);
+        }
+        return supplierRepository.save(supplier);
     }
 
     @Override
-    public void deleteSupplier(Supplier supplier) {
-        supplierDAO.deleteSupplier(supplier);
+    public void deleteSupplier(Supplier supplier, boolean useHibernate) {
+        if(useHibernate){
+            supplierDAO.deleteSupplier(supplier);
+        }
+        supplierRepository.delete(supplier);
     }
 }

@@ -1,5 +1,7 @@
 package ro.sda.hypermarket.core.entity;
 
+import ro.sda.hypermarket.core.base.BaseEntity;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,11 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "suppliers", schema = "hypermarket")
-public class Supplier {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Supplier extends BaseEntity {
 
     @OneToMany(mappedBy = "supplier")
     private List<Product> products;
@@ -24,14 +22,6 @@ public class Supplier {
 
     @Column(name = "city", length = 30)
     private String city;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -62,7 +52,7 @@ public class Supplier {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Supplier supplier = (Supplier) o;
-        return Objects.equals(id, supplier.id) &&
+        return Objects.equals(getId(), supplier.getId()) &&
                 Objects.equals(name, supplier.name) &&
                 Objects.equals(contactNo, supplier.contactNo) &&
                 Objects.equals(city, supplier.city);
@@ -70,13 +60,13 @@ public class Supplier {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, contactNo, city);
+        return Objects.hash(getId(), name, contactNo, city);
     }
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Supplier{");
-        sb.append("id=").append(id);
+        sb.append("id=").append(getId());
         sb.append(", products=").append(products);
         sb.append(", name='").append(name).append('\'');
         sb.append(", contactNo='").append(contactNo).append('\'');
