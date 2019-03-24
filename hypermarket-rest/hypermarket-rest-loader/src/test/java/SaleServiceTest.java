@@ -5,12 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-import ro.sda.hypermarket.core.dao.ClientService;
-import ro.sda.hypermarket.core.dao.EmployeeService;
-import ro.sda.hypermarket.core.dao.SaleService;
 import ro.sda.hypermarket.core.entity.Client;
 import ro.sda.hypermarket.core.entity.Employee;
 import ro.sda.hypermarket.core.entity.Sale;
+import ro.sda.hypermarket.core.service.ClientService;
+import ro.sda.hypermarket.core.service.EmployeeService;
+import ro.sda.hypermarket.core.service.SaleService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/spring-config/spring-root.xml")
