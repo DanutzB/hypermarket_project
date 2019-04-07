@@ -16,6 +16,9 @@
         <module>hypermarket-rest-core</module>
         <module>hypermarket-rest-loader</module>
     </modules>
+
+
+
     <properties>
         <resteasy.version>3.0.16.Final</resteasy.version>
         <fasterxml.version>2.7.2</fasterxml.version>

@@ -12,6 +12,8 @@
     <artifactId>hypermarket-rest-core</artifactId>
     <packaging>jar</packaging>
     <name>sda-hypermarket-rest-core</name>
+
+
     <dependencies>
         <!-- INTERNAL Dependencies START -->
         <dependency>
